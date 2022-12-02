@@ -1,0 +1,193 @@
+---
+title: "FluentVCF Vignettes"
+author: "Mirco Macchi"
+email: 
+abstract: Instructions on using FluentVCF package. 
+package: FluentVCF
+output: 
+  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{VCF}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+Loading necessary libraries 
+```{r,message=FALSE,warning=FALSE}
+library(VariantAnnotation)
+library(GenomicRanges)
+library(BSgenome.Hsapiens.UCSC.hg38)
+library(dplyr)
+library(ggplot2)
+library(RColorBrewer)
+library(FluentVCF)
+```
+
+Reading the VCF file from VariantAnnotation package with human reference genome hg38
+
+```{r}
+require(VariantAnnotation)
+vcffile <- system.file("extdata", "chr22.vcf.gz", package="VariantAnnotation")
+vcf <- readVcf(vcffile, "hg38")
+
+```
+
+Inspecting the object
+```{r}
+
+class(vcf)
+```
+
+
+Content of INFO fields:
+```{r}
+info(header(vcf))
+
+```
+
+
+```{r}
+info(vcf)[1:3,1:5]
+
+```
+Genotype information (FORMAT and following columns of the VCF file):
+
+```{r}
+head(geno(vcf)$GT)
+```
+
+In this way, all of the SNP's are printed in format "rs---------" , where "-" represents a number.
+```{r}
+rowRanges(vcf)
+```
+
+Names of the reference sequences (here: chromosome 22)
+
+```{r}
+seqnames(vcf)
+
+```
+
+
+Start and end position on the reference sequence
+```{r}
+start(vcf[1:5])
+end(vcf[1:5])
+```
+
+DNA strand information
+
+```{r}
+as.character(strand(vcf[1:5]))
+
+```
+
+
+Extract the first 500 rows of the dataset
+```{r}
+vcfDF <- as(rowRanges(vcf[1:500]), "DataFrame")
+head(vcfDF)
+
+```
+Extract and store unique mutations signatures present in the data with reference hg38. Default context length is set to 3.
+Thus, default output will be in "C[A>G]C" format.
+
+```{r}
+require(BSgenome.Hsapiens.UCSC.hg38)
+Hsapiens <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
+muts <- mut_type(vcfDF, ref.genome = Hsapiens)
+head(muts)
+```
+
+
+The reference bases (=REF)
+
+```{r}
+refBase <- ref(vcf)
+ref(vcf[1:5])
+
+```
+
+
+
+```{r}
+refBase <- unlist(lapply(refBase, as.character))
+refBase[1:2]
+
+```
+
+
+The alternate (variant!) bases (=ALT)
+
+```{r}
+altBase <- alt(vcf)
+alt(vcf[1:5])
+```
+
+get the 1st and 2nd vector of the list
+```{r}
+altBase <- lapply(altBase, '[[', 1)
+altBase[1:2]
+```
+
+
+Convert DNAString object to character
+
+```{r}
+altBase <- unlist(lapply(altBase, as.character))
+altBase[1:2]
+```
+
+
+
+
+Get coordinates
+
+```{r}
+startRef <- start(vcf)
+endRef <- end(vcf)
+```
+
+Chromosome number
+```{r}
+chr <- seqnames(vcf)
+```
+
+Collecting pieces of interest coming from original file will ease downstream steps 
+
+```{r}
+Basedf <- data.frame(ref = refBase, alt=altBase, startRef= startRef, endRef= endRef, chr = chr)
+head(Basedf)
+```
+
+Applying "type" function on the data frame, wil return the same inpu object with a new column listing the type for each mutation(substitution, insertion, deletion).
+
+```{r}
+Basedf$type <- apply(Basedf,1,type)
+head(Basedf)
+```
+
+With mut_summary, total number of mutation per type is extracted from the data set.
+
+```{r}
+mut_summary <- mut_summary(Basedf)
+mut_summary
+```
+
+MutHist
+Lastly, it is interesing to plot an informative histogram regarding mutation frequency in the dataset.
+
+```{r,fig.width=8,fig.height=6}
+MutHist(mut_summary)
+```
+
+```{r}
+sessionInfo()
+```
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+Package: FluentVCF
+Type: Package
+Title: Processes VariantCallFormat file
+Version: 0.1.0
+Authors@R: person("Mirco", "Macchi", email = "mirco.macchi@live.it",role = c("aut", "cre"))
+Description: Return,summarizes and plots information regarding each mutation in VCF file.
+        The mutation type is UP[REF>ALT]DOWN. 
+        where REF>ALT is the single nucleotide variant from REF base to ALT. 
+        e.g., C>T.
+Imports: 
+    GenomicRanges,
+    dplyr,
+    ggplot2,
+    RColorBrewer,
+    Biostrings,
+    GenomeInfoDb,
+    VariantAnnotation,
+    BSgenome.Hsapiens.UCSC.hg38,
+    stats,
+    MatrixGenerics
+License: GPL-3
+Encoding: UTF-8
+RoxygenNote: 7.2.1
+VignetteBuilder: knitr
+Suggests: BiocStyle, knitr, rmarkdown
+biocViews: Workflow, GenomicVariantsWorkflow
