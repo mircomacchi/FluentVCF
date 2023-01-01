@@ -5,6 +5,20 @@ FluentVCF is a comprehensive, Bioconductor compliant, R package to
 determine the mutation type for a set of single nucleotide variants in a
 genome.
 
+# Installation
+Run the following lines in R to install FluentVCF:
+
+```
+if (!require("devtools")) {install.packages("devtools")}
+devtools::install_github("dacolombo/SeqCountGenome")
+```
+
+Then load the package:
+
+```
+library(SeqCountGenome)
+```
+
 # Introduction
 
 Variant Call Format (VCF) is a specification for storing genotype data
