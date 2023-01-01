@@ -10,13 +10,13 @@ Run the following lines in R to install FluentVCF:
 
 ```
 if (!require("devtools")) {install.packages("devtools")}
-devtools::install_github("dacolombo/SeqCountGenome")
+devtools::install_github("mircomacchi/FluentVCF")
 ```
 
 Then load the package:
 
 ```
-library(SeqCountGenome)
+library(FluentVCF)
 ```
 
 # Introduction
