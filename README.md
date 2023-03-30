@@ -1,8 +1,8 @@
-
+<p align="center">
 <img src="images/FluentVCF.png" width="679" />
+</p>
 
-
-FluentVCF is a new, Bioconductor compliant, R package to
+**FluentVCF** is Bioconductor compliant, R package to
 determine the mutation type for a set of single nucleotide variants in a
 genome.
 
