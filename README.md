@@ -50,5 +50,28 @@ Moreover, graphical outputs are integrated.
 
 # Requirements
 
-The following packages are needed to run FluentVCF: VariantAnnotation,
-GenomicRanges, dplyr, ggplot2, and RColorBrewer.
+FluentVCF relies on R packages to efficiently analyze and visualize variant call format (VCF) data. These dependencies include VariantAnnotation for VCF data extraction and annotation, GenomicRanges for genomic coordinate-based operations, dplyr for streamlined data manipulation, ggplot2 for creating informative plots, and RColorBrewer for aesthetically pleasing color palettes. 
+
+### Dependencies installation
+```
+# Define the list of packages to be installed
+required_packages <- c("VariantAnnotation", "GenomicRanges", "dplyr", "ggplot2", "RColorBrewer")
+
+# Check if each package is already installed, and install if not
+for (package in required_packages) {
+  if (!requireNamespace(package, quietly = TRUE)) {
+    install.packages(package, dependencies = TRUE)
+  }
+}
+
+# Load the installed packages
+library(VariantAnnotation)
+library(GenomicRanges)
+library(dplyr)
+library(ggplot2)
+library(RColorBrewer)
+
+# You can now use FluentVCF with the required packages loaded
+
+```
+
