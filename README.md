@@ -1,9 +1,10 @@
 <p align="center">
-<img src="images/FluentVCF.png" width="679" />
+<img src="images/FluentVCF.png" width="1000" />
 </p>
 
+
 **FluentVCF** is Bioconductor compliant, R package to
-determine the mutation type for a set of single nucleotide variants in a
+determine the mutation type for a set of single nucleotide variants in a given
 genome.
 
 # Installation
