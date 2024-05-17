@@ -1,5 +1,5 @@
 <p align="center">
-<img src="images/FluentVCF.png" width="1000" />
+<img src="images/fluentVCF_v2.png" width="1000" />
 </p>
 
 
