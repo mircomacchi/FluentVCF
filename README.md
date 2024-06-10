@@ -20,7 +20,7 @@ Then load the package:
 ```
 library(FluentVCF)
 ```
-
+ 
 # Introduction
 
 Variant Call Format (VCF) is a specification for storing genotype data
